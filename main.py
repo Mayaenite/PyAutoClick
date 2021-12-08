@@ -6,7 +6,7 @@ from PySide2.QtUiTools import QUiLoader
 from PySide2.QtCore import QObject, Signal, Slot,Qt, QFile, QIODevice
 import sys
 import os
-
+import time
 _MOUSE_CTRL = mouse.Controller()
 UI_LOADER = QUiLoader()
 
@@ -60,7 +60,7 @@ class Mouse_Monitor(QObject):
     def On_Mouse_Clicked(self, x, y, button, pressed):
         """"""
         if button == mouse.Button.left:
-            button_name = "Left"
+            button_name = "right"
             if pressed and not self._is_in_autoclick_mode:
                 self.Left_Mouse_Clicked.emit(True)
             elif not pressed:
@@ -154,6 +154,8 @@ class MyWidget(QWidget):
             
     def timerEvent(self, event):
         _MOUSE_CTRL.press(mouse.Button.left)
+        _MOUSE_CTRL.release(mouse.Button.left)
+    
         #print("Timer ID:{0}".format(event.timerId()))
         
 if __name__ == '__main__':
